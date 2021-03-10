@@ -129,6 +129,19 @@ Done #
 - [x] Make sure the entire codebase is DRY
 - [x] Make sure all methods are three lines or shorter
 
+Done #
+
+15. Extracting the journey log out of the Oystercard
+- [ ] Write up a plan for how you will interact with your code and manually test in IRB.
+- [ ] test drive the development of `JourneyLog` class
+- [ ] Initialise the `JourneyLog` with a `journey_class` parameter (hint: `journey_class` expects an object that knows how to create `Journey`s.  Can you think of an object that already does this?)
+- [ ] `#start` should start a new journey with an entry station
+- [ ] a private method `#current_journey` should return an incomplete journey or create a new journey
+- [ ] `#finish` should add an exit station to the `current_journey`
+- [ ] `#journeys` should return a list of all previous journeys without exposing the internal array to external modification
+- [ ] remove redundant code from OysterCard class
+
+
 journey.start_journey(entry_station)
 update the journey instance to entry_station eq the entry station argument
 
