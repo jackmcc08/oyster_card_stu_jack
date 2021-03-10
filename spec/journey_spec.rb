@@ -2,8 +2,8 @@ require 'journey'
 
 describe Journey do
 
-  let(:entry_station_victoria) { double(:station) }
-  let(:exit_station_wimbledon) {double(:station)}
+  let(:entry_station_victoria) { double(:station, name: "test", zone: 1) }
+  let(:exit_station_wimbledon) {double(:station, name: "test", zone: 1)}
 
   describe "#start_journey" do
     it "updates entry_station when called" do

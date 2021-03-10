@@ -1,6 +1,10 @@
+require_relative 'journey_log'
+require_relative 'station'
+
+
 class Oystercard
 
-  attr_reader :balance, :history, :journey
+  attr_reader :balance
 
   DEFAULT_BALANCE = 0
   MINIMUM_BALANCE = 1
@@ -26,7 +30,7 @@ class Oystercard
   end
 
   def touch_out(exit_station)
-    in_journey? ? deduct(MINIMUM_FARE) : deduct(PENALTY_FARE)
+    in_journey? ? deduct(fare(@journey_log.journey.store_journey[:entry_station] , exit_station)) : deduct(PENALTY_FARE)
     end_journey(exit_station)
   end
 
@@ -34,7 +38,16 @@ class Oystercard
     @journey_log.in_journey?
   end
 
+  def history
+    @journey_log.journeys
+  end
+
 private
+  def fare(entry_station, exit_station)
+    1 + (1 * (entry_station.zone - exit_station.zone).abs )
+  end
+
+
   def deduct(fare)
     @balance -= fare
     "£#{fare} Fare deducted. New balance is £#{@balance}."

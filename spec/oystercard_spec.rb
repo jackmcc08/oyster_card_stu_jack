@@ -2,8 +2,8 @@ require "./lib/oystercard"
 
 describe Oystercard do
   let(:test_card) { Oystercard.new(40) }
-  let(:test_station) { double :test_station }
-  let(:test_station_2) { double :test_station }
+  let(:test_station) { double :test_station, name: "test", zone: 1}
+  let(:test_station_2) { double :test_station, name: "test",  zone: 1 }
 
   describe "#top_up" do
     it "tops up £50 and provide confirmation" do
@@ -34,6 +34,9 @@ describe Oystercard do
   end
 
   describe "#touch_out" do
+    let(:zone_1_station) { double(:station, name: "test",  zone: 1)}
+    let(:zone_3_station) { double(:station, name: "test", zone: 3)}
+
     it "deducts MINIMUM AMOUNT from oystercard" do
       test_card.touch_in(test_station_2)
       expect { test_card.touch_out(test_station) }.to change{ test_card.balance }.by(-Oystercard::MINIMUM_FARE)
@@ -42,6 +45,12 @@ describe Oystercard do
     it "charges you a penalty fare if you have not touched in previously" do
       subject.top_up(40)
       expect{ subject.touch_out(test_station) }.to change{ subject.balance }.by(-Oystercard::PENALTY_FARE)
+    end
+
+    it "charges you £3 when you travel between zone 1 and zone 3 stations" do
+      subject.top_up(40)
+      subject.touch_in(zone_1_station)
+      expect{ subject.touch_out(zone_3_station) }.to change{ subject.balance }.by(-3)
     end
   end
 

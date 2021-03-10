@@ -141,15 +141,6 @@ Done #
 - [x] `#journeys` should return a list of all previous journeys without exposing the internal array to external modification
 - [x] remove redundant code from OysterCard class
 
-Done #
-
-16. Calculating the fare between zones
-- [ ] Write up a plan for how you will interact with your code and manually test in IRB.
-- [ ] Write tests that cover different scenarios (same zone, different zones)
-- [ ] Make the tests pass
-- [ ] Consider whether some methods should be private
-- [ ] If appropriate, consider extracting some code into new methods to make the code easier to read
-- [ ] Implement a mechanism across your application to deduct the penalty fare from the balance if the user forgets to touch out
 
 
 journey.start_journey(entry_station)
@@ -160,6 +151,31 @@ update the journey instance to exit_station eq the exit station argument
 
 journey.store_journey
 return a hash of entry and exit journey
+
+Done #
+
+16. Calculating the fare between zones
+- [x] Write up a plan for how you will interact with your code and manually test in IRB.
+- [x] Write tests that cover different scenarios (same zone, different zones)
+- [x] Make the tests pass
+- [x] Consider whether some methods should be private
+- [x] If appropriate, consider extracting some code into new methods to make the code easier to read
+- [x] Implement a mechanism across your application to deduct the penalty fare from the balance if the user forgets to touch out
+
+DONE! (could do more refactoring)
+-----
+
+We will charge £1 for every journey, plus £1 for every zone boundary crossed. So, a journey within the same zone will cost £1, the journey between zones 1 and 2 will cost £2, and the journey between zones 3 and 5 will cost £3. For simplicity sake, assume that the smallest possible number of zones is crossed, e.g. a journey from zone 2 to zone 2 doesn't cross any boundaries (as opposed to, say, going via zone 1).
+
+fare = 1 + (1 * (exit_station_zone - entry_station_zone).abs )
+
+In order to be charged the correct amount
+As a customer
+I need to have the correct fare calculated
+
+
+fare(station_1, station_2)
+calculates the fare
 
 
 ----------------------------------

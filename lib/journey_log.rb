@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class JourneyLog
 
   attr_reader :journey_class, :journeys, :journey
@@ -15,7 +17,7 @@ class JourneyLog
 
   def finish(exit_station)
     current_journey.end_journey(exit_station)
-    @journeys << @journey.store_journey
+    store_journey
     @journey.reset_journey
   end
 
@@ -24,6 +26,9 @@ class JourneyLog
   end
 
   private
+  def store_journey
+    @journeys << { entry_station: !!@journey.store_journey[:entry_station] ? @journey.store_journey[:entry_station].name : nil , exit_station: !!@journey.store_journey[:exit_station] ? @journey.store_journey[:exit_station].name : nil}
+  end
 
   def current_journey
     in_journey? ? @journey : @journey = @journey_class

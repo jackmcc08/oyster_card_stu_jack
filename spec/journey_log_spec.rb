@@ -1,8 +1,8 @@
 require 'journey_log'
 
 describe JourneyLog do
-  let(:entry_station) { double(:station) }
-  let(:exit_station) { double(:station) }
+  let(:entry_station) { double(:station, name: "test", zone: 1) }
+  let(:exit_station) { double(:station, name: "test", zone: 1) }
 
   it "has a variable which is of the class Journey" do
     expect(subject.journey_class).to be_a(Journey)
@@ -26,7 +26,7 @@ describe JourneyLog do
       subject.start(entry_station)
       subject.finish(exit_station)
       subject.finish(exit_station)
-      expect(subject.journeys).to eq [{ entry_station: entry_station, exit_station: exit_station }, { entry_station: nil, exit_station: exit_station }]
+      expect(subject.journeys).to eq [{ entry_station: entry_station.name, exit_station: exit_station.name }, { entry_station: nil, exit_station: exit_station.name }]
     end
   end
 
