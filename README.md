@@ -113,6 +113,23 @@ DONE#
 
 DONE #
 
+13.  Creating the station class
+- [x] Write up a plan for how you will interact with your code and manually test in IRB
+- [x] Test drive the creation of a Station class that exposes a name and a zone variable
+- [x] Use only one expectation per test
+
+Done #
+
+14. Handling a journey without a touch out
+- [ ] Write up a plan for how you will interact with your code and manually test in IRB.
+- [ ] Update your test suite to reflect a new Journey class
+- [ ] Create a new class Journey and move the functionality that relates to a journey from Oystercard to Journey
+- [ ] Make sure all tests pass, all existing functionality is preserved
+- [ ] The `#fare` method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no  exit station.
+- [ ] Make sure the entire codebase is DRY
+- [ ] Make sure all methods are three lines or shorter
+
+
 ----------------------------------
 
 User story 1
@@ -175,3 +192,13 @@ I want to see all my previous trips
 
 >oyster.check_history
 >>list all previous trips
+
+
+In order to know how far I have travelled
+As a customer
+I want to know what zone a station is in
+
+
+In order to be charged correctly
+As a customer
+I need a penalty charge deducted if I fail to touch in or out
