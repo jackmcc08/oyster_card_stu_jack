@@ -1,7 +1,5 @@
 class Journey
 
-  attr_reader :entry_station, :exit_station
-
   def initialize
     @journey = { entry_station: nil, exit_station: nil}
   end

@@ -4,14 +4,6 @@ describe Journey do
 
   let(:entry_station_victoria) { double(:station) }
   let(:exit_station_wimbledon) {double(:station)}
-  # let(subject) { Journey.new }
-
-  it "has a variable to store entry_station" do
-    expect(subject.entry_station).to eq nil
-  end
-  it "has a variable to store exit_station" do
-    expect(subject.exit_station).to eq nil
-  end
 
   describe "#start_journey" do
     it "updates entry_station when called" do

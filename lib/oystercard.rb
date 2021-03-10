@@ -15,9 +15,8 @@ class Oystercard
   end
 
   def top_up(amount)
-    pot_balance = @balance + amount
-    raise "Card max limit is £#{Oystercard::MAXIMUM_LIMIT}. Top up failed, no money added." if pot_balance > MAXIMUM_LIMIT
-    @balance = pot_balance
+    raise "Card max limit is £#{Oystercard::MAXIMUM_LIMIT}. Top up failed, no money added." if @balance + amount > MAXIMUM_LIMIT
+    @balance += amount
     "Card succesfully topped up. Balance is now £#{@balance}."
   end
 
@@ -25,15 +24,12 @@ class Oystercard
     deduct(PENALTY_FARE) if in_journey?
     raise "Card does not have a minimum balance of £1. Please top up." unless @balance >= MINIMUM_BALANCE
     @journey.start_journey(station)
-    in_journey?
   end
 
   def touch_out(exit_station)
-    @journey.end_journey(exit_station)
-    store_journey
+    end_journey(exit_station)
     in_journey? ? deduct(MINIMUM_FARE) : deduct(PENALTY_FARE)
     @journey.reset_journey
-    in_journey?
   end
 
   def in_journey?
@@ -45,6 +41,11 @@ private
   def deduct(fare)
     @balance -= fare
     "£#{fare} Fare deducted. New balance is £#{@balance}."
+  end
+
+  def end_journey(exit_station)
+    @journey.end_journey(exit_station)
+    store_journey
   end
 
   def store_journey

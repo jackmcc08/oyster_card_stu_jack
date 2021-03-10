@@ -126,8 +126,8 @@ Done #
 - [x] Create a new class Journey and move the functionality that relates to a journey from Oystercard to Journey
 - [x] Make sure all tests pass, all existing functionality is preserved
 - [x] The `#fare` method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no  exit station.
-- [ ] Make sure the entire codebase is DRY
-- [ ] Make sure all methods are three lines or shorter
+- [x] Make sure the entire codebase is DRY
+- [x] Make sure all methods are three lines or shorter
 
 journey.start_journey(entry_station)
 update the journey instance to entry_station eq the entry station argument
