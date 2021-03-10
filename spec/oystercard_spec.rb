@@ -11,6 +11,10 @@ describe Oystercard do
     end
   end
 
+  it "has a variable of the class journey" do
+    expect(subject.journey).to be_a(Journey)
+  end
+
   describe "#top_up" do
     it "tops up balance" do
       expect(subject).to respond_to(:top_up)
@@ -76,21 +80,6 @@ describe Oystercard do
     it "returns false when card is touched out and no longer in use" do
       test_card.touch_out(test_station)
       expect(test_card).not_to be_in_journey
-    end
-  end
-
-  describe "#entry_station" do
-    before do
-      test_card.touch_in(test_station)
-    end
-
-    it "tells you the entry station after touch in" do
-      expect(test_card.entry_station).to eq test_station
-    end
-
-    it "does not have a entry station on touch out" do
-      test_card.touch_out(test_station)
-      expect(test_card.entry_station).to eq nil
     end
   end
 
