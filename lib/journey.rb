@@ -1,7 +1,7 @@
 class Journey
 
   def initialize
-    @journey = { entry_station: nil, exit_station: nil}
+    @journey = { entry_station: nil, exit_station: nil }
   end
 
   def start_journey(entry_station)
@@ -17,7 +17,7 @@ class Journey
   end
 
   def reset_journey
-    @journey = { entry_station: nil, exit_station: nil}
+    @journey = { entry_station: nil, exit_station: nil }
   end
 
   def in_journey?
