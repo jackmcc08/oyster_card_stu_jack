@@ -29,4 +29,11 @@ describe JourneyLog do
       expect(subject.journeys).to eq [{ entry_station: entry_station, exit_station: exit_station }, { entry_station: nil, exit_station: exit_station }]
     end
   end
+
+  describe "#in_journey?" do
+    it "returns true if entry_station is not nil" do
+      subject.start(entry_station)
+      expect(subject.in_journey?).to be true
+    end
+  end
 end

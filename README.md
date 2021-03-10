@@ -139,7 +139,17 @@ Done #
 - [x] a private method `#current_journey` should return an incomplete journey or create a new journey
 - [x] `#finish` should add an exit station to the `current_journey`
 - [x] `#journeys` should return a list of all previous journeys without exposing the internal array to external modification
-- [ ] remove redundant code from OysterCard class
+- [x] remove redundant code from OysterCard class
+
+Done #
+
+16. Calculating the fare between zones
+- [ ] Write up a plan for how you will interact with your code and manually test in IRB.
+- [ ] Write tests that cover different scenarios (same zone, different zones)
+- [ ] Make the tests pass
+- [ ] Consider whether some methods should be private
+- [ ] If appropriate, consider extracting some code into new methods to make the code easier to read
+- [ ] Implement a mechanism across your application to deduct the penalty fare from the balance if the user forgets to touch out
 
 
 journey.start_journey(entry_station)
@@ -229,3 +239,8 @@ I need a penalty charge deducted if I fail to touch in or out
 > penalty fare if on touch in exit station is nil || in_journey?
 
 > penalty far if on touch our entry station is nil || !in_journey?
+
+
+In order to be charged the correct amount
+As a customer
+I need to have the correct fare calculated

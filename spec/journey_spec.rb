@@ -33,11 +33,4 @@ describe Journey do
       expect(subject.reset_journey).to eq({entry_station: nil, exit_station: nil})
     end
   end
-
-  describe "#in_journey?" do
-    it "returns true if entry_station is not nil" do
-      subject.start_journey(entry_station_victoria)
-      expect(subject.in_journey?).to be true
-    end
-  end
 end

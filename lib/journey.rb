@@ -19,8 +19,4 @@ class Journey
   def reset_journey
     @journey = { entry_station: nil, exit_station: nil }
   end
-
-  def in_journey?
-    !!@journey[:entry_station]
-  end
 end

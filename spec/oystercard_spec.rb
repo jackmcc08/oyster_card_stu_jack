@@ -57,12 +57,4 @@ describe Oystercard do
       expect(test_card).not_to be_in_journey
     end
   end
-
-  describe "#history" do
-    it "checks the travel history of an oystercard after one journey" do
-      test_card.touch_in(test_station)
-      test_card.touch_out(test_station_2)
-      expect(test_card.history).to eq [{ entry_station: test_station, exit_station: test_station_2 }]
-    end
-  end
 end

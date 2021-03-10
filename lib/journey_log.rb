@@ -1,10 +1,10 @@
 class JourneyLog
 
-  attr_reader :journey_class, :journeys
+  attr_reader :journey_class, :journeys, :journey
 
   def initialize
     @journey_class = Journey.new
-    @journey = nil
+    @journey = Journey.new
     @journeys = []
   end
 
@@ -19,9 +19,13 @@ class JourneyLog
     @journey.reset_journey
   end
 
+  def in_journey?
+    !!@journey.store_journey[:entry_station]
+  end
+
   private
 
   def current_journey
-    @journey.in_journey? ? @journey : @jounery = @journey_class
+    in_journey? ? @journey : @journey = @journey_class
   end
 end
