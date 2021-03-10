@@ -1,6 +1,6 @@
 class Oystercard
 
-  attr_reader :balance, :current_station
+  attr_reader :balance, :entry_station, :history
 
   DEFAULT_BALANCE = 0
   MINIMUM_BALANCE = 1
@@ -10,7 +10,8 @@ class Oystercard
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
     # @in_use = false
-    @current_station = nil
+    @entry_station = nil
+    @history = []
   end
 
   def top_up(amount)
@@ -22,27 +23,29 @@ class Oystercard
 
   def touch_in(station)
     raise "Card does not have a minimum balance of £1. Please top up." unless @balance >= MINIMUM_BALANCE
-    @current_station = station
+    @entry_station = station
     in_journey?
   end
 
-  def touch_out
-    @current_station = nil
-    @balance += MINIMUM_FARE
+  def touch_out(exit_station)
+    store_journey(exit_station)
+    deduct(MINIMUM_FARE)
     in_journey?
   end
 
   def in_journey?
-    @current_station != nil
+    @entry_station != nil
   end
 
-  def check_history
-    "London Victoria, Croydon"
-  end
 
 private
   def deduct(fare)
     @balance -= fare
     "£#{fare} Fare deducted. New balance is £#{@balance}."
+  end
+
+  def store_journey(exit_station)
+    @history << {entry_station: @entry_station, exit_station: exit_station}
+    @entry_station = nil
   end
 end

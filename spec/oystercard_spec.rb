@@ -3,6 +3,7 @@ require "./lib/oystercard"
 describe Oystercard do
   let(:test_card) { Oystercard.new(40) }
   let(:test_station) { double :test_station }
+  let(:test_station_2) { double :test_station }
 
   describe "#balance" do
     it "checks balance" do
@@ -50,11 +51,11 @@ describe Oystercard do
     end
 
     it "returns false if called" do
-      expect(subject.touch_out).to eq false
+      expect(subject.touch_out(test_station)).to eq false
     end
 
     it "deducts MINIMUM AMOUNT from oystercard" do
-      expect { test_card.touch_out }.to change{ test_card.balance }.by(Oystercard::MINIMUM_FARE)
+      expect { test_card.touch_out(test_station) }.to change{ test_card.balance }.by(-Oystercard::MINIMUM_FARE)
     end
   end
 
@@ -73,29 +74,35 @@ describe Oystercard do
     end
 
     it "returns false when card is touched out and no longer in use" do
-      test_card.touch_out
+      test_card.touch_out(test_station)
       expect(test_card).not_to be_in_journey
     end
   end
 
-  describe "#current_station" do
+  describe "#entry_station" do
     before do
       test_card.touch_in(test_station)
     end
 
-    it "tells you the current station after touch in" do
-      expect(test_card.current_station).to eq test_station
+    it "tells you the entry station after touch in" do
+      expect(test_card.entry_station).to eq test_station
     end
 
-    it "does not have a current station on touch out" do
-      test_card.touch_out
-      expect(test_card.current_station).to eq nil
+    it "does not have a entry station on touch out" do
+      test_card.touch_out(test_station)
+      expect(test_card.entry_station).to eq nil
     end
   end
 
-  describe "#check_history" do
-    it "checks the travel history of an oystercard" do
-      expect(subject.check_history).to eq "London Victoria, Croydon" 
+  describe "#history" do
+    it "returns historic journeys as an array" do
+      expect(subject.history).to be_a Array
+    end
+
+    it "checks the travel history of an oystercard after one journey" do
+      test_card.touch_in(test_station)
+      test_card.touch_out(test_station_2)
+      expect(test_card.history).to eq [{ entry_station: test_station, exit_station: test_station_2 }]
     end
   end
 end
