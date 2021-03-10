@@ -6,10 +6,10 @@ class Oystercard
   MINIMUM_BALANCE = 1
   MAXIMUM_LIMIT = 90
   MINIMUM_FARE = 1
+  PENALTY_FARE = 6
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
-    # @in_use = false
     @journey = Journey.new
     @history = []
   end
@@ -22,14 +22,17 @@ class Oystercard
   end
 
   def touch_in(station)
+    deduct(PENALTY_FARE) if in_journey?
     raise "Card does not have a minimum balance of £1. Please top up." unless @balance >= MINIMUM_BALANCE
     @journey.start_journey(station)
     in_journey?
   end
 
   def touch_out(exit_station)
-    store_journey(exit_station)
-    deduct(MINIMUM_FARE)
+    @journey.end_journey(exit_station)
+    store_journey
+    in_journey? ? deduct(MINIMUM_FARE) : deduct(PENALTY_FARE)
+    @journey.reset_journey
     in_journey?
   end
 
@@ -44,8 +47,7 @@ private
     "£#{fare} Fare deducted. New balance is £#{@balance}."
   end
 
-  def store_journey(exit_station)
-    @history << {entry_station: @entry_station, exit_station: exit_station}
-    @entry_station = nil
+  def store_journey
+    @history << @journey.store_journey
   end
 end

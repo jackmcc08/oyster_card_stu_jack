@@ -122,10 +122,10 @@ Done #
 
 14. Handling a journey without a touch out
 - [x] Write up a plan for how you will interact with your code and manually test in IRB.
-- [ ] Update your test suite to reflect a new Journey class
+- [x] Update your test suite to reflect a new Journey class
 - [x] Create a new class Journey and move the functionality that relates to a journey from Oystercard to Journey
-- [ ] Make sure all tests pass, all existing functionality is preserved
-- [ ] The `#fare` method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no  exit station.
+- [x] Make sure all tests pass, all existing functionality is preserved
+- [x] The `#fare` method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no  exit station.
 - [ ] Make sure the entire codebase is DRY
 - [ ] Make sure all methods are three lines or shorter
 
@@ -211,3 +211,8 @@ I want to know what zone a station is in
 In order to be charged correctly
 As a customer
 I need a penalty charge deducted if I fail to touch in or out
+
+
+> penalty fare if on touch in exit station is nil || in_journey?
+
+> penalty far if on touch our entry station is nil || !in_journey?

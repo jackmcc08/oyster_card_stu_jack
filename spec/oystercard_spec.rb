@@ -47,6 +47,12 @@ describe Oystercard do
     it "raises an error if card does not have the MINIMUM AMOUNT to travel" do
       expect{subject.touch_in(test_station)}.to raise_error "Card does not have a minimum balance of £#{Oystercard::MINIMUM_BALANCE}. Please top up."
     end
+
+    it "charges you a penalty fare if you have not touched out previously" do
+      subject.top_up(40)
+      subject.touch_in(test_station_2)
+      expect{subject.touch_in(test_station)}.to change{ subject.balance }.by(-Oystercard::PENALTY_FARE)
+    end
   end
 
   describe "#touch_out" do
@@ -59,7 +65,13 @@ describe Oystercard do
     end
 
     it "deducts MINIMUM AMOUNT from oystercard" do
+      test_card.touch_in(test_station_2)
       expect { test_card.touch_out(test_station) }.to change{ test_card.balance }.by(-Oystercard::MINIMUM_FARE)
+    end
+
+    it "charges you a penalty fare if you have not touched in previously" do
+      subject.top_up(40)
+      expect{ subject.touch_out(test_station) }.to change{ subject.balance }.by(-Oystercard::PENALTY_FARE)
     end
   end
 
@@ -78,6 +90,7 @@ describe Oystercard do
     end
 
     it "returns false when card is touched out and no longer in use" do
+      test_card.touch_in(test_station)
       test_card.touch_out(test_station)
       expect(test_card).not_to be_in_journey
     end
